@@ -1,5 +1,5 @@
 # Profanity-Filter
-Uses Python tries to match slurs and other vulgar words to a dictionary.
+Uses marisa-trie to match slurs and other vulgar words to a dictionary.
 # Warning
 This program by design contains words that may be offensive.
 # Requirements
