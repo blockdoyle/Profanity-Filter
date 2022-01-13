@@ -6,13 +6,13 @@ def importBlacklist(): # imports blacklisted words from 'blacklist.txt'
 
 blacklistWords = importBlacklist() # calls importBlacklist function
 
-trie = marisa_trie.Trie(blacklistWords) # takes the blacklistWords list and puts it into a marisa_trie trie
+blacklistTrie = marisa_trie.Trie(blacklistWords) # takes the blacklistWords list and puts it into a marisa_trie trie
 
 sentence = "".lower()
 
-for word in sentence.split():
-    for entry in trie.keys(word):
+for word in sentence.split(): # checks each word in sentence if it's in the trie
+    for entry in blacklistTrie.keys(word):
         if enchant.utils.levenshtein(word,entry) < 1:
             print("banned word", word)
     
-print(trie.keys(word))
+print(blacklistTrie.keys(word))
