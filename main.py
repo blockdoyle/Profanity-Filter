@@ -26,7 +26,7 @@ def findBlacklistWord(testWord,trie): # compares a word against similarities in 
             continue
     return False
 
-def incomingMessage(sentence):
+def incomingMessage(sentence): # Takes sentence variable and splits into list. Then checks if each word is blacklisted in blacklistTrie
     for word in sentence.split():
         if findBlacklistWord(word, blacklistTrie) == True:
             return "Banned"
