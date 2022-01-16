@@ -1,7 +1,7 @@
 import marisa_trie, difflib
 
-def importBlacklist(): # imports blacklisted words from 'blacklist.txt'
-    file = open("blacklist.txt")
+def importBlacklist(blacklistFile): # imports blacklisted words from 'blacklist.txt'
+    file = open(blacklistFile)
     return file.read().splitlines()
 
 def convertToWhole(num): # converts float to integer
@@ -18,20 +18,18 @@ def processString(txt): # Removes all punctuation from string
     return txt
 
 def findBlacklistWord(testWord,trie): # compares a word against similarities in trie, and returns if 85% or mroe match
-    words = []
     for word in trie:
         if getDifference(testWord, word) > 85:
-            words.append(word)
+            return True
+            continue
         else:
             continue
-    return words
+    return False
 
-#TESTING CODE BLOCK    
-blacklistWords = importBlacklist() # calls importBlacklist function
+def incomingMessage(sentence):
+    for word in sentence.split():
+        if findBlacklistWord(word, blacklistTrie) == True:
+            return "Banned"
 
-blacklistTrie = marisa_trie.Trie(blacklistWords) # takes the blacklistWords list and puts it into a marisa_trie trie
-
-msg = processString("You are such a fucking asshole, you know that? Go fuck yourself cunt.".lower()).split()
-
-for word in msg:
-    print(findBlacklistWord(word, blacklistTrie.keys(word)))
+if __name__ == "__main__":
+    blacklistTrie = marisa_trie.Trie(importBlacklist("blacklist.txt")) # imports blacklist.txt and converts the list to trie
