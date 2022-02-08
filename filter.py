@@ -4,6 +4,9 @@ def importBlacklist(blacklistFile): # imports blacklisted words from 'blacklist.
     file = open(blacklistFile)
     return file.read().splitlines()
 
+def makeAMarisaTrie(wordlist):
+    return marisa_trie.Trie(wordlist)
+
 def convertToWhole(num): # converts float to integer
     return int(num * 100)
 
@@ -15,6 +18,7 @@ def processString(txt): # Removes all punctuation from string
     specialChars = "!,.'\""
     for specialChars in specialChars:
         txt = txt.replace(specialChars, "")
+        txt = txt.lower()
     return txt
 
 def findBlacklistWord(testWord,trie): # compares a word against similarities in trie, and returns if 85% or mroe match
@@ -31,5 +35,5 @@ def incomingMessage(sentence): # Takes sentence variable and splits into list. T
         if findBlacklistWord(word, blacklistTrie) == True:
             return "Banned"
 
-if __name__ == "__main__":
-    blacklistTrie = marisa_trie.Trie(importBlacklist("blacklist.txt")) # imports blacklist.txt and converts the list to trie
+newTrie = makeAMarisaTrie('blacklist.txt')
+print(incomingMessage("Fuck"))
